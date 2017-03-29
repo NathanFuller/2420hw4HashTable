@@ -6,6 +6,7 @@
 int main(){
     HashTable hash;
 
+    hash.insert(4011, "banana");
     hash.printTable();
 
 

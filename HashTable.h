@@ -35,7 +35,10 @@ private:
                 plu(myPlu),
                 name(myName),
                 isDeleted(false){}
-        Veggie():isDeleted(false){}
+        Veggie():
+                plu(0),
+                name(""),
+                isDeleted(false){}
         int plu;
         std::string name;
         bool isDeleted;

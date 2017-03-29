@@ -4,7 +4,7 @@
 
 #include "HashTable.h"
 
-HashTable::HashTable():HashTable(tableSize) {
+HashTable::HashTable():HashTable(tableSize = 10) {
 }
 
 HashTable::HashTable(long size) {
@@ -25,6 +25,8 @@ void HashTable::insert(int key, std::string data) {
 }
 
 void HashTable::printTable() {
+    
+    std::cout<<"Address\tKey\tData\tisDeleted"<<std::endl;
     for (int i = 0; i<tableSize; i++){
         std::cout<<i<<"\t"<<table[i].plu<<"\t"<<table[i].name<<"\t"<<table[i].isDeleted<<std::endl;
     }
