@@ -7,12 +7,20 @@
 HashTable::HashTable():HashTable(tableSize = 10) {
 }
 
-HashTable::HashTable(long size) {  //This constructor will need to be completely reworked to support rehashing
+HashTable::HashTable(long size) {
     tableSize = size;
     table.reserve(tableSize);
     for (int i=0; i<tableSize; i++){
         table[i] = *(new Veggie);
     }
+
+    //Here's what needs to happen: After insert puts something in, it will check if the table is more than
+    //half full. (Maybe keep track of how many are assigned in a member variable of HashTable that insert()
+    //will increment.)
+    //If the table is more than half full, it will call rehash(), which will create a new table twice the
+    //size, move everything to its new position in the table, and then delete the old one.
+    //Note: I *was* thinking about making this constructor create the new table, but I don't think that's
+    //what we want to do anymore. I may go back to that.
 }
 
 int HashTable::hashFunction(int key) {
