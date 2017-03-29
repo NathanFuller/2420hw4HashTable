@@ -29,6 +29,7 @@ private:
     int hashFunction(int key);
     void rehash();
     HashTable(long size);
+    int collision(int key);
 
     struct Veggie{
         Veggie(int myPlu, std::string myName):
