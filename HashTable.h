@@ -50,7 +50,7 @@ private:
     long tableSize = 10;
     int itemsStored = 0;
 
-    std::vector<Veggie> table;
+    Veggie* table;
 
 
 };

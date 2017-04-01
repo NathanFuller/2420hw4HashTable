@@ -9,7 +9,7 @@ HashTable::HashTable():HashTable(tableSize = 10) {
 
 HashTable::HashTable(long size) {
     tableSize = size;
-    table.reserve(tableSize);
+    table = new Veggie[tableSize];
     for (int i=0; i<tableSize; i++){
         table[i] = *(new Veggie);
     }
@@ -95,7 +95,7 @@ void HashTable::rehash() {
 
 
     tableSize*=2;
-    table.reserve(tableSize);
+    table = new Veggie[tableSize];
     for (int i=0; i<tableSize; i++) {
         table[i] = *(new Veggie);
     }
