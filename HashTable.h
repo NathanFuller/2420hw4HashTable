@@ -16,7 +16,7 @@ public:
     void insert(int key, std::string data);
     std::string find(int key); //Returns the associated data
     void printTable();
-    void remove(int key);
+    bool remove(int key);
 
 private:
    /* ~HashTable(){
@@ -31,7 +31,7 @@ private:
     HashTable(long size);
     int collision(int key);
 
-    Veggie* findRecord(int key); //This one will be used by remove() and insert()
+    //Veggie* findRecord(int key); //This one will be used by remove() and insert()
 
     struct Veggie{
         Veggie(int myPlu, std::string myName):
@@ -48,6 +48,7 @@ private:
     };
 
     long tableSize = 10;
+    int itemsStored = 0;
 
     std::vector<Veggie> table;
 

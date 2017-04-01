@@ -28,7 +28,11 @@ int HashTable::hashFunction(int key) {
 }
 
 int HashTable::collision(int key) {
-    return key+1; //This is linear probing
+    if (key==tableSize-1){
+        key = 0;
+    }
+    return key+1; //This is linear probing; hopefully all I'll have to do is change this function to get
+                    //the bonus points for double hashing
 }
 
 
@@ -39,6 +43,10 @@ void HashTable::insert(int key, std::string data) {
     }
     Veggie myVeg(key, data);
     table[address] = myVeg;
+    itemsStored++;
+    if (itemsStored>=(tableSize/2)){
+        rehash();
+    }
 }
 
 void HashTable::printTable() {
@@ -61,6 +69,42 @@ std::string HashTable::find(int key) {
 
 
     return "Item not found";
+}
+
+bool HashTable::remove(int key) {
+    int adrs = hashFunction(key);
+    while (table[adrs].plu!=0){
+        if (table[adrs].plu == key){
+            table[adrs].isDeleted = true;
+            return true;
+        }
+        adrs = collision(adrs); 
+    }
+    return false;
+}
+
+
+void HashTable::rehash() {
+    //Create a temporary vector to store our info
+    std::vector<Veggie> temp;
+    for (int i=0; i<tableSize; i++){
+        if (table[i].plu!=0){
+            temp.push_back(table[i]);
+        }
+    }
+
+
+    tableSize*=2;
+    table.reserve(tableSize);
+    for (int i=0; i<tableSize; i++) {
+        table[i] = *(new Veggie);
+    }
+    itemsStored = 0;
+    //Use insert() on everything in temp
+    for (Veggie item:temp){
+        insert(item.plu, item.name);
+    }
+
 }
 
 
