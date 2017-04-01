@@ -24,22 +24,21 @@ HashTable::HashTable(long size) {
 }
 
 int HashTable::hashFunction(int key) {
-    return key%tableSize;
+    int persInc = personalizedIncrememter(key);
+    int init = key%tableSize;
+    return (init+persInc)%tableSize;
 }
 
-int HashTable::collision(int key) {
-    if (key==tableSize-1){
-        key = 0;
-    }
-    return key+1; //This is linear probing; hopefully all I'll have to do is change this function to get
-                    //the bonus points for double hashing
+int HashTable::collision(int key, int persInc) {
+    return (key+persInc)%tableSize;
 }
+
 
 
 void HashTable::insert(int key, std::string data) {
     int address = hashFunction(key);
     while (table[address].plu!=0){
-        address = collision(address);
+        address = collision(address, personalizedIncrememter(key));
     }
     Veggie myVeg(key, data);
     table[address] = myVeg;
@@ -63,7 +62,7 @@ std::string HashTable::find(int key) {
         if (table[adrs].plu == key){
             return table[adrs].name;
         }
-        adrs = collision(adrs);
+        adrs = collision(adrs, personalizedIncrememter(key));
     }
 
 
@@ -78,7 +77,7 @@ bool HashTable::remove(int key) {
             table[adrs].isDeleted = true;
             return true;
         }
-        adrs = collision(adrs); 
+        adrs = collision(adrs, personalizedIncrememter(key));
     }
     return false;
 }
@@ -105,6 +104,10 @@ void HashTable::rehash() {
         insert(item.plu, item.name);
     }
 
+}
+
+int HashTable::personalizedIncrememter(int key) {
+    return (key+4) % (tableSize - 2);
 }
 
 

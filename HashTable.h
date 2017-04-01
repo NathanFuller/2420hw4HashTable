@@ -29,7 +29,8 @@ private:
     int hashFunction(int key);
     void rehash();
     HashTable(long size);
-    int collision(int key);
+    int collision(int key, int persInc);
+    int personalizedIncrememter(int key);
 
     //Veggie* findRecord(int key); //This one will be used by remove() and insert()
 
